@@ -3,12 +3,17 @@
   "version": "1.0.0",
   "description": "Hello Stranger! It is a RESTful API for recipes.back.",
   "main": "index.js",
-  "scripts": {
-    "dev": "nodemon index.js"
+  "repository": {
+      "type": "git",
+      "url": "https://github.com/ksawl/show.recipes.back"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "keywords": ["express", "sequelize", "CRUD", "RESTful"],
+  "author": "<serhii.karavashkin@gmail.com>",
+  "license": "MIT",
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
