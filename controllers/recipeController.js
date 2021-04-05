@@ -9,8 +9,14 @@ const getExt = (fullname) => fullname.split('.').pop().toLowerCase();
 /** PUBLIC */
 class recipeController {
     async getAll(req, res, next) {
+        let { limit, page } = req.query;
+        
+        page = page || 1;
+        limit = limit || 6;
+        let offset = page * limit - limit;
+
         try {
-            const data = await Recipes.findAll();
+            const data = await Recipes.findAndCountAll({ limit, offset });
 
             return res.json(data);
         } catch (e) {
@@ -65,12 +71,13 @@ module.exports = new recipeController();
 /** PRIVATE */
 async function _changeRow(req, res, next, method) {
     try {
-        const { name, price, info } = req.body;
+        const { name, price, info, imageUrl } = req.body;
         const files = req.files;
         const newData = {};
 
         if (name) newData.name = name;
         if (price) newData.price = price;
+        if (imageUrl) newData.imageUrl = imageUrl;
         if (info) newData.info = info;
 
         /** Upload file */
