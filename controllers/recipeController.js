@@ -2,6 +2,7 @@ const ApiError = require('../error/ApiError');
 const { Recipes } = require('../models/models');
 const uuid = require('uuid');
 const path = require('path');
+var faker = require('faker');
 
 const IMAGE_DIR = path.resolve(__dirname, '..', 'uploads');
 const getExt = (fullname) => fullname.split('.').pop().toLowerCase();
@@ -10,7 +11,7 @@ const getExt = (fullname) => fullname.split('.').pop().toLowerCase();
 class recipeController {
     async getAll(req, res, next) {
         let { limit, page } = req.query;
-        
+
         page = page || 1;
         limit = limit || 6;
         let offset = page * limit - limit;
@@ -65,6 +66,32 @@ class recipeController {
             next(ApiError.badRequest(e.message));
         }
     }
+
+    async fakeSeed(req, res, next) {
+        try {
+            console.log('\x1b[32m', 'req.query: ', req.query, '\x1b[0m',)
+            const { q } = req.query;
+            if (!q) q = 20;
+
+            await Recipes.destroy({ truncate: true, cascade: false });
+
+            for (let i = 1; i <= q; i++) {
+                const row = {
+                    id: i,
+                    name: i + ' ' + faker.lorem.words(),
+                    price: faker.datatype.number(),
+                    image: '',
+                    imageUrl: faker.image.imageUrl(),
+                    info: faker.lorem.paragraph(),
+                };
+                await Recipes.create(row);
+            }
+
+            return res.json({ message: 'Seeding ok' });
+        } catch (e) {
+            next(ApiError.badRequest(e.message));
+        }
+    }
 }
 module.exports = new recipeController();
 
@@ -89,7 +116,7 @@ async function _changeRow(req, res, next, method) {
                 const err = ApiError.badRequest('Forbidden kind of file!');
                 return next(err);
             }
-            
+
             /** Upload file */
             newData.image = uuid.v4() + '.' + ext;
             files.image.mv(path.resolve(IMAGE_DIR, newData.image));

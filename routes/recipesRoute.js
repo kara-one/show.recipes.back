@@ -4,6 +4,7 @@ const recipeController = require('../controllers/recipeController');
 
 router
     .get('/recipes', recipeController.getAll)
+    .get('/recipes/seed', recipeController.fakeSeed)
     .get('/recipes/:id', recipeController.getOne)
     .post('/recipes', recipeController.create)
     .put('/recipes/:id', recipeController.edit)

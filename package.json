@@ -4,14 +4,19 @@
   "description": "Hello Stranger! It is a RESTful API for recipes.back.",
   "main": "index.js",
   "repository": {
-      "type": "git",
-      "url": "https://github.com/ksawl/show.recipes.back"
+    "type": "git",
+    "url": "https://github.com/ksawl/show.recipes.back"
   },
   "scripts": {
     "dev": "nodemon index.js",
     "start": "node index.js"
   },
-  "keywords": ["express", "sequelize", "CRUD", "RESTful"],
+  "keywords": [
+    "express",
+    "sequelize",
+    "CRUD",
+    "RESTful"
+  ],
   "author": "<serhii.karavashkin@gmail.com>",
   "license": "MIT",
   "dependencies": {
@@ -19,6 +24,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-fileupload": "^1.2.1",
+    "faker": "^5.5.2",
     "pg": "^8.5.1",
     "pg-hstore": "^2.3.3",
     "sequelize": "^6.6.2",
