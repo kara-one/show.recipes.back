@@ -69,7 +69,6 @@ class recipeController {
 
     async fakeSeed(req, res, next) {
         try {
-            console.log('\x1b[32m', 'req.query: ', req.query, '\x1b[0m',)
             const { q } = req.query;
             if (!q) q = 20;
 

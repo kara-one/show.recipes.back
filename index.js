@@ -31,7 +31,7 @@ const init = async () => {
             console.log('\x1b[32m', `Server Up! pp listening on port ${PORT}!`, '\x1b[0m',)
         );
     } catch (e) {
-        console.log(e);
+        console.error(e);
     }
 };
 
