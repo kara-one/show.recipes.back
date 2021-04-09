@@ -19,7 +19,7 @@ class recipeController {
         let order = [];
         switch (sort) {
             case 'up':
-                order: [
+                order = [
                     ['id', 'DESC'],
                     ['name', 'ASC'],
                 ];
