@@ -10,14 +10,31 @@ const getExt = (fullname) => fullname.split('.').pop().toLowerCase();
 /** PUBLIC */
 class recipeController {
     async getAll(req, res, next) {
-        let { limit, page } = req.query;
+        let { limit, page, sort } = req.query;
 
         page = page || 1;
         limit = limit || 6;
         let offset = page * limit - limit;
 
+        let order = [];
+        switch (sort) {
+            case 'up':
+                order: [
+                    ['id', 'DESC'],
+                    ['name', 'ASC'],
+                ];
+                break;
+        
+            default:
+                break;
+        }
+
         try {
-            const data = await Recipes.findAndCountAll({ limit, offset });
+            const data = await Recipes.findAndCountAll({
+                limit,
+                offset,
+                order,
+            });
 
             return res.json(data);
         } catch (e) {
